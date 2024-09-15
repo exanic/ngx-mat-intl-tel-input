@@ -26,28 +26,26 @@
       </mat-error>
     </mat-form-field>
 
-    <mat-form-field style="width: 50%">
-      <ngx-mat-intl-tel-input
-        [cssClass]="'custom'"
-        [preferredCountries]="['us', 'ca']"
-        [enablePlaceholder]="true"
-        [formControl]="phoneForm.controls.phone"
-        placeholder="Enter Number"
-        describedBy="phoneInput"
-        #phone
-      ></ngx-mat-intl-tel-input>
-      <mat-hint>e.g. {{ phone.selectedCountry.placeHolder }}</mat-hint>
-      <mat-error *ngIf="phoneForm.controls.phone.errors?.required">
-        Required Field
-      </mat-error>
-      <mat-error
-        *ngIf="
-          f.submitted && phoneForm.controls.phone.errors?.validatePhoneNumber
-        "
-      >
-        Invalid Number
-      </mat-error>
-    </mat-form-field>
+    <ngx-mat-intl-tel-input
+      [cssClass]="'custom'"
+      [preferredCountries]="['us', 'ca']"
+      [enablePlaceholder]="true"
+      [formControl]="phoneForm.controls.phone"
+      placeholder="Enter Number"
+      describedBy="phoneInput"
+      #phone
+    ></ngx-mat-intl-tel-input>
+    <mat-hint>e.g. {{ phone.selectedCountry.placeHolder }}</mat-hint>
+    <mat-error *ngIf="phoneForm.controls.phone.errors?.required">
+      Required Field
+    </mat-error>
+    <mat-error
+      *ngIf="
+        f.submitted && phoneForm.controls.phone.errors?.validatePhoneNumber
+      "
+    >
+      Invalid Number
+    </mat-error>
 
     <button mat-button>Submit</button>
     <button type="reset" mat-button (click)="onReset()">Reset</button>
