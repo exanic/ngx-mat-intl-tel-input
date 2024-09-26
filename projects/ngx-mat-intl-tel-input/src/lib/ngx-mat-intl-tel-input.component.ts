@@ -55,10 +55,7 @@ import { MatInput, MatInputModule } from "@angular/material/input";
 import { MatMenu, MatMenuModule } from "@angular/material/menu";
 import { Subject } from "rxjs";
 import { SearchPipe } from "./search.pipe";
-import {
-  MatSelectSearchComponent,
-  NgxMatSelectSearchModule,
-} from "ngx-mat-select-search";
+import { NgxMatSelectSearchModule } from "ngx-mat-select-search";
 import { MatSelectModule } from "@angular/material/select";
 
 class NgxMatIntlTelInputBase {

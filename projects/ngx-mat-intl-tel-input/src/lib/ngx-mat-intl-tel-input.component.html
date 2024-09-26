@@ -3,22 +3,17 @@
     <mat-select
       [disabled]="disabled"
       [value]="selectedCountry"
-      class="tel-mat-select-panel"
       (selectionChange)="onCountrySelect($event.value, phoneInput)"
     >
       <mat-select-trigger>
-        <span
-          class="country-selector-flag flag"
-          [ngClass]="selectedCountry?.flagClass"
-        ></span>
+        <span [ngClass]="selectedCountry?.flagClass"></span>
         <span class="country-selector-code" *ngIf="selectedCountry?.dialCode"
           >+{{ selectedCountry.dialCode }}</span
         >
       </mat-select-trigger>
-      <mat-option>
+      <mat-option class="search-option">
         <ngx-mat-select-search
           [formControl]="searchCriteriaControl"
-          [placeholderLabel]="searchPlaceholder"
           (click)="$event.stopPropagation()"
         >
         </ngx-mat-select-search>
@@ -33,7 +28,6 @@
       </mat-option>
     </mat-select>
   </mat-form-field>
-
   <mat-form-field class="phone-input">
     <mat-label>Number</mat-label>
     <input

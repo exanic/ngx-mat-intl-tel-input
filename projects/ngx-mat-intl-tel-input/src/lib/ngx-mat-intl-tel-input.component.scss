@@ -1,39 +1,29 @@
 $color-black: #000;
 
-input {
-  &:not(.country-search) {
-    border: none;
-    background: none;
-    outline: none;
-    font: inherit;
-    width: 100%;
-    box-sizing: border-box;
-    position: relative;
-    z-index: 0;
-    margin: {
-      top: 0 !important;
-      bottom: 0 !important;
-      right: 0;
-      left: 0;
-    }
-  }
+.ngx-mat-tel-input-container {
+  display: flex;
+  align-items: flex-start;
+  gap: 10px;
+}
 
-  &.country-search {
-    width: 100%;
-    height: 34px;
-    border: none;
-    border-bottom: 1px solid #ddd;
-    font-size: 14px;
-    padding: 20px 20px 24px;
-    position: sticky;
-    top: 0;
-    background-color: #fff;
-    z-index: 9;
-  }
+.country-select {
+  width: 150px;
+  flex-shrink: 0;
+}
+
+.phone-input {
+  flex-grow: 1;
 }
 
 .icon-wrapper {
   padding-right: 24px;
+}
+
+::ng-deep .mat-mdc-select-panel .search-option {
+  position: sticky;
+  top: 0;
+  background: white;
+  z-index: 1;
 }
 
 .flag {
@@ -52,94 +42,12 @@ input {
   vertical-align: middle;
 }
 
-.country-selector {
-  border-radius: 0;
-  color: rgba($color-black, 0.87);
-  flex-shrink: 0;
-  height: initial;
-  line-height: unset;
-  width: 90px;
-  padding: 1px;
-  opacity: 0;
-  transition: opacity 200ms;
-  position: absolute;
-  z-index: 1;
-  top: 0;
-  bottom: 0;
-  right: auto;
-  left: 0;
-  font: {
-    size: inherit;
-    weight: inherit;
-  }
-  background: {
-    image: url(assets/arrow_drop_down_grey600_18dp.png);
-    position: right center;
-    repeat: no-repeat;
-    size: 18px auto;
-  }
-
-  &:disabled {
-    color: rgba($color-black, 0.38);
-  }
-}
-
-:host.ngx-floating .country-selector {
-  opacity: 1 !important;
-}
-
-.country-selector-flag {
-  display: inline-block;
-  margin-right: 0.5ex;
-}
-
-.ngx-mat-tel-input-container {
-  display: flex;
-  align-items: flex-start;
-  gap: 10px;
-}
-
-.country-select {
-  width: 150px;
-  flex-shrink: 0;
-}
-
-.phone-input {
-  flex-grow: 1;
+.country-selector-code {
+  margin-left: 0.5ex;
 }
 
 ::ng-deep .mat-mdc-select-panel {
   min-width: 240px !important;
-}
-
-.country-list-button {
-  color: rgba($color-black, 0.87);
-  direction: ltr;
-  font-size: 16px;
-  font-weight: 400;
-  height: initial;
-  line-height: normal;
-  min-height: 48px;
-  padding: 14px 24px;
-  text-align: left;
-  text-transform: none;
-  width: 100%;
-}
-
-.number-form-field {
-  flex-grow: 1;
-  input {
-    &::placeholder {
-      color: #ccc;
-    }
-  }
-  mat-icon {
-    padding: 0 8px;
-    a {
-      text-decoration: none;
-      color: var(--mdc-theme-primary, #209ffc);
-    }
-  }
 }
 
 $country-flags: (
