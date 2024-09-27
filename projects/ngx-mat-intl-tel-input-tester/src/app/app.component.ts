@@ -31,7 +31,7 @@ interface PhoneForm {
     NgxMatIntlTelInputComponent,
   ],
 })
-export class AppComponent implements AfterViewInit {
+export class AppComponent {
   @ViewChild(NgxMatIntlTelInputComponent) phoneInput:
     | NgxMatIntlTelInputComponent
     | undefined;
@@ -48,11 +48,5 @@ export class AppComponent implements AfterViewInit {
 
   onReset() {
     this.phoneForm.reset();
-  }
-
-  ngAfterViewInit() {
-    if (this.phoneInput && this.phoneInput.matMenu) {
-      this.phoneInput.matMenu.panelClass = "custom-panel";
-    }
   }
 }

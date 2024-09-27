@@ -1,1 +1,1 @@
-export type NumberPhoneFormat = "default" | "national" | "international";
+export type PhoneNumberFormat = "default" | "national" | "international";

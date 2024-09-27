@@ -36,13 +36,8 @@ import {
 } from "libphonenumber-js";
 import { CountryCode, Examples } from "./data/country-code";
 import { Country } from "./model/country.model";
-import { NumberPhoneFormat } from "./model/phone-number-format.model";
+import { PhoneNumberFormat } from "./model/phone-number-format.model";
 import { phoneNumberValidator } from "./ngx-mat-intl-tel-input.validator";
-import {
-  PhoneNumberUtil,
-  PhoneNumberFormat,
-  PhoneNumberType,
-} from "google-libphonenumber";
 import { FocusMonitor } from "@angular/cdk/a11y";
 import { coerceBooleanProperty } from "@angular/cdk/coercion";
 import { CommonModule } from "@angular/common";
@@ -54,11 +49,8 @@ import {
   _AbstractConstructor,
   _Constructor,
 } from "@angular/material/core";
-import { MatDividerModule } from "@angular/material/divider";
 import { MatInput, MatInputModule } from "@angular/material/input";
-import { MatMenu, MatMenuModule } from "@angular/material/menu";
 import { Subject } from "rxjs";
-import { SearchPipe } from "./search.pipe";
 import { NgxMatSelectSearchModule } from "ngx-mat-select-search";
 import { MatSelectModule } from "@angular/material/select";
 
@@ -91,12 +83,9 @@ const _NgxMatIntlTelInputMixinBase: CanUpdateErrorStateCtor &
     FormsModule,
     MatSelectModule,
     MatInputModule,
-    MatMenuModule,
     MatButtonModule,
     NgxMatSelectSearchModule,
-    MatDividerModule,
     ReactiveFormsModule,
-    SearchPipe,
   ],
   providers: [
     CountryCode,
@@ -130,19 +119,19 @@ export class NgxMatIntlTelInputComponent
   @Input() enableSearch = false;
   @Input() searchPlaceholder: string | undefined;
   @Input() describedBy = "";
+  @Input() phoneLabel = "Number";
 
   @Input()
-  get format(): NumberPhoneFormat {
+  get format(): PhoneNumberFormat {
     return this._format;
   }
 
-  set format(value: NumberPhoneFormat) {
+  set format(value: PhoneNumberFormat) {
     this._format = value;
     this.phoneNumber = this.formattedPhoneNumber;
     this.stateChanges.next(undefined);
   }
 
-  @ViewChild(MatMenu) matMenu: MatMenu | undefined;
   private _placeholder: string | undefined;
   private _required = false;
   private _disabled = false;
@@ -155,17 +144,16 @@ export class NgxMatIntlTelInputComponent
   preferredCountriesInDropDown: Array<Country> = [];
   selectedCountry: Country | undefined;
   numberInstance: PhoneNumber | undefined;
-  phoneNumberUtil = PhoneNumberUtil.getInstance();
   value: E164Number | string | undefined;
   searchCriteria: string | undefined;
   @Output() countryChanged = new EventEmitter<Country>();
 
   private previousFormattedNumber: string | undefined;
-  private _format: NumberPhoneFormat = "default";
+  private _format: PhoneNumberFormat = "default";
 
   static getPhoneNumberPlaceHolder(countryISOCode: CC): string | undefined {
-    const result = getExampleNumber(countryISOCode, Examples);
-    return !!result ? result.number.toString() : undefined;
+    const exampleNumber = getExampleNumber(countryISOCode, Examples);
+    return exampleNumber ? exampleNumber.formatNational() : undefined;
   }
 
   onTouched = () => {};
@@ -295,23 +283,14 @@ export class NgxMatIntlTelInputComponent
     }
     this.selectedCountry = country;
     this.countryChanged.emit(this.selectedCountry);
-    this.inputPlaceholder = this.getPhoneNumberPlaceHolder(country.iso2);
-    this.onPhoneNumberChange();
-    el.focus();
-  }
-
-  protected getPhoneNumberPlaceHolder(countryCode: string): string {
-    try {
-      return this.phoneNumberUtil.format(
-        this.phoneNumberUtil.getExampleNumberForType(
-          countryCode,
-          PhoneNumberType.MOBILE
-        ),
-        PhoneNumberFormat.NATIONAL
+    this.inputPlaceholder =
+      NgxMatIntlTelInputComponent.getPhoneNumberPlaceHolder(
+        country.iso2.toUpperCase() as any
       );
-    } catch (e) {
-      return "";
-    }
+    this.onPhoneNumberChange();
+    setTimeout(() => {
+      el.focus();
+    });
   }
 
   public getCountry(code: string): Country {
