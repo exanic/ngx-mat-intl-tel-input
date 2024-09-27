@@ -1,6 +1,6 @@
 # International Telephone Input for Angular Material (NgxMatIntlTelInput)
 
-An Angular Material package for entering and validating international telephone numbers. It adds a flag dropdown to any input, detects the user's country, displays a relevant placeholder and provides formatting/validation methods.
+An Angular Material package for entering and validating international telephone numbers. It adds a flag dropdown to any input, detects the user's country, displays a relevant placeholder and provides formatting/validation methods. Adapted for exanic to seperate country code selection from phone input.
 
 **Supports:**
 
@@ -32,6 +32,14 @@ Add `NgxMatIntlTelInputComponent` to your component file:
 imports: [NgxMatIntlTelInputComponent];
 ```
 
+If close icon is not displayed correctly on ngx mat select search, try adding:
+
+<link
+      href="https://fonts.googleapis.com/icon?family=Material+Icons"
+      rel="stylesheet"/>
+
+to your `index.html`
+
 ## Example
 
 Refer to main app in this repository for working example.
@@ -46,7 +54,6 @@ Refer to main app in this repository for working example.
 
 <form #f="ngForm" [formGroup]="phoneForm">
   <ngx-mat-intl-tel-input
-  [preferredCountries]="['us', 'gb']"
   [enablePlaceholder]="true"
   [enableSearch]="true"
   name="phone"
@@ -69,15 +76,15 @@ If you want to show the sample number for the country selected or errors , use m
 
 ## Options
 
-| Options            | Type       | Default     | Description                                                                         |
-| ------------------ | ---------- | ----------- | ----------------------------------------------------------------------------------- | --- |
-| preferredCountries | `string[]` | `[]`        | List of country abbreviations, which will appear at the top.                        |
-| onlyCountries      | `string[]` | `[]`        | List of manually selected country abbreviations, which will appear in the dropdown. |     |
-| inputPlaceholder   | `string`   | `undefined` | Placeholder for the input component.                                                |
-| enablePlaceholder  | `boolean`  | `true`      | Input placeholder text, which adapts to the country selected.                       |
-| enableSearch       | `boolean`  | `false`     | Whether to display a search bar to help filter down the list of countries           |
-| format             | `string`   | `default`   | Format of "as you type" input. Possible values: national, international, default    |
-| describedBy        | `string`   | `undefined` | Use aria-described by with the input field                                          |
+| Options           | Type       | Default     | Description                                                                         |
+| ----------------- | ---------- | ----------- | ----------------------------------------------------------------------------------- |
+| onlyCountries     | `string[]` | `[]`        | List of manually selected country abbreviations, which will appear in the dropdown. |
+| inputPlaceholder  | `string`   | `undefined` | Placeholder for the input component.                                                |
+| enablePlaceholder | `boolean`  | `true`      | Input placeholder text, which adapts to the country selected.                       |
+| enableSearch      | `boolean`  | `false`     | Whether to display a search bar to help filter down the list of countries           |
+| format            | `string`   | `default`   | Format of "as you type" input. Possible values: national, international, default    |
+| describedBy       | `string`   | `undefined` | Use aria-described by with the input field                                          |
+| searchPlaceholder | `string`   | `undefined` | Search label for country select search dropdown                                     |
 
 ## Library Contributions
 
