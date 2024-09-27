@@ -36,9 +36,13 @@ import {
 } from "libphonenumber-js";
 import { CountryCode, Examples } from "./data/country-code";
 import { Country } from "./model/country.model";
-import { PhoneNumberFormat } from "./model/phone-number-format.model";
+import { NumberPhoneFormat } from "./model/phone-number-format.model";
 import { phoneNumberValidator } from "./ngx-mat-intl-tel-input.validator";
-
+import {
+  PhoneNumberUtil,
+  PhoneNumberFormat,
+  PhoneNumberType,
+} from "google-libphonenumber";
 import { FocusMonitor } from "@angular/cdk/a11y";
 import { coerceBooleanProperty } from "@angular/cdk/coercion";
 import { CommonModule } from "@angular/common";
@@ -128,11 +132,11 @@ export class NgxMatIntlTelInputComponent
   @Input() describedBy = "";
 
   @Input()
-  get format(): PhoneNumberFormat {
+  get format(): NumberPhoneFormat {
     return this._format;
   }
 
-  set format(value: PhoneNumberFormat) {
+  set format(value: NumberPhoneFormat) {
     this._format = value;
     this.phoneNumber = this.formattedPhoneNumber;
     this.stateChanges.next(undefined);
@@ -151,12 +155,13 @@ export class NgxMatIntlTelInputComponent
   preferredCountriesInDropDown: Array<Country> = [];
   selectedCountry: Country | undefined;
   numberInstance: PhoneNumber | undefined;
+  phoneNumberUtil = PhoneNumberUtil.getInstance();
   value: E164Number | string | undefined;
   searchCriteria: string | undefined;
   @Output() countryChanged = new EventEmitter<Country>();
 
   private previousFormattedNumber: string | undefined;
-  private _format: PhoneNumberFormat = "default";
+  private _format: NumberPhoneFormat = "default";
 
   static getPhoneNumberPlaceHolder(countryISOCode: CC): string | undefined {
     const result = getExampleNumber(countryISOCode, Examples);
@@ -290,8 +295,23 @@ export class NgxMatIntlTelInputComponent
     }
     this.selectedCountry = country;
     this.countryChanged.emit(this.selectedCountry);
+    this.inputPlaceholder = this.getPhoneNumberPlaceHolder(country.iso2);
     this.onPhoneNumberChange();
     el.focus();
+  }
+
+  protected getPhoneNumberPlaceHolder(countryCode: string): string {
+    try {
+      return this.phoneNumberUtil.format(
+        this.phoneNumberUtil.getExampleNumberForType(
+          countryCode,
+          PhoneNumberType.MOBILE
+        ),
+        PhoneNumberFormat.NATIONAL
+      );
+    } catch (e) {
+      return "";
+    }
   }
 
   public getCountry(code: string): Country {
@@ -333,7 +353,6 @@ export class NgxMatIntlTelInputComponent
             country.iso2.toUpperCase() as CC
           );
       }
-
       this.allCountries.push(country);
     });
   }

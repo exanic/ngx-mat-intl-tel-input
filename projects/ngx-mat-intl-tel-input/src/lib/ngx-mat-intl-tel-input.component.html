@@ -29,7 +29,7 @@
     </mat-select>
   </mat-form-field>
   <mat-form-field class="phone-input">
-    <mat-label>Number</mat-label>
+    <mat-label>{{ inputPlaceholder }}</mat-label>
     <input
       matInput
       #phoneInput
@@ -41,7 +41,6 @@
       [(ngModel)]="phoneNumber"
       (ngModelChange)="onPhoneNumberChange()"
       [errorStateMatcher]="errorStateMatcher"
-      [placeholder]="inputPlaceholder"
       [disabled]="disabled"
       [aria-describedby]="describedBy"
     />
