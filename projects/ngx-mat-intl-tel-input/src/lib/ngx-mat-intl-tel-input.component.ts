@@ -141,7 +141,6 @@ export class NgxMatIntlTelInputComponent
   id = `ngx-mat-intl-tel-input-${NgxMatIntlTelInputComponent.nextId++}`;
   phoneNumber: NationalNumber | undefined;
   allCountries: Array<Country> = [];
-  preferredCountriesInDropDown: Array<Country> = [];
   selectedCountry: Country | undefined;
   numberInstance: PhoneNumber | undefined;
   value: E164Number | string | undefined;
@@ -210,16 +209,6 @@ export class NgxMatIntlTelInputComponent
     if (!this.searchPlaceholder) {
       this.searchPlaceholder = "Search ...";
     }
-    if (this.preferredCountries.length) {
-      this.preferredCountries.forEach((iso2) => {
-        const preferredCountry = this.allCountries
-          .filter((c) => c.iso2 === iso2)
-          .shift();
-        if (preferredCountry) {
-          this.preferredCountriesInDropDown.push(preferredCountry);
-        }
-      });
-    }
     if (this.onlyCountries.length) {
       this.allCountries = this.allCountries.filter((c) =>
         this.onlyCountries.includes(c.iso2)
@@ -229,13 +218,13 @@ export class NgxMatIntlTelInputComponent
       // If an existing number is present, we use it to determine selectedCountry
       this.selectedCountry = this.getCountry(this.numberInstance.country);
     } else {
-      if (this.preferredCountriesInDropDown.length) {
-        this.selectedCountry = this.preferredCountriesInDropDown[0];
-      } else {
-        this.selectedCountry = this.allCountries[0];
-      }
+      this.selectedCountry = this.allCountries[0];
     }
     this.countryChanged.emit(this.selectedCountry);
+    this.inputPlaceholder =
+      NgxMatIntlTelInputComponent.getPhoneNumberPlaceHolder(
+        this.selectedCountry.iso2.toUpperCase() as CC
+      );
     this._changeDetectorRef.markForCheck();
     this.stateChanges.next(undefined);
     this.filteredCountries = this.allCountries;
@@ -285,7 +274,7 @@ export class NgxMatIntlTelInputComponent
     this.countryChanged.emit(this.selectedCountry);
     this.inputPlaceholder =
       NgxMatIntlTelInputComponent.getPhoneNumberPlaceHolder(
-        country.iso2.toUpperCase() as any
+        country.iso2.toUpperCase() as CC
       );
     this.onPhoneNumberChange();
     setTimeout(() => {
@@ -361,12 +350,6 @@ export class NgxMatIntlTelInputComponent
         }
         setTimeout(() => {
           this.selectedCountry = this.getCountry(countryCode);
-          if (
-            this.selectedCountry.dialCode &&
-            !this.preferredCountries.includes(this.selectedCountry.iso2)
-          ) {
-            this.preferredCountriesInDropDown.push(this.selectedCountry);
-          }
           this.countryChanged.emit(this.selectedCountry);
 
           // Initial value is set
