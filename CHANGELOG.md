@@ -78,7 +78,7 @@ This release supports the Angular version 14.
 
 ### Features
 
-- Upgraded to Angular version 15
+- Use Angular version 15
 - Use ngx-mat-select-search for country code dropdown
 - Seperate country code selection from phone number input.
 - Styling changes

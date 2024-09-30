@@ -1,6 +1,6 @@
 {
-  "name": "ngx-mat-intl-tel-input-yuna",
-  "version": "1.8.0",
+  "name": "@exanic/ngx-mat-intl-tel-input",
+  "version": "1.0.0",
   "peerDependencies": {
     "@angular/common": ">=14.x",
     "@angular/core": ">=14.x",

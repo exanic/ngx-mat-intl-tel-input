@@ -1,6 +1,6 @@
 {
-  "name": "ngx-mat-intl-tel-input-baku",
-  "version": "1.6.0",
+  "name": "@exanic/ngx-mat-intl-tel-input",
+  "version": "1.0.0",
   "scripts": {
     "ng": "ng",
     "start": "ng serve",

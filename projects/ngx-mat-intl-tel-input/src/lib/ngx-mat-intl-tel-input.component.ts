@@ -139,7 +139,7 @@ export class NgxMatIntlTelInputComponent
   focused = false;
   @HostBinding()
   id = `ngx-mat-intl-tel-input-${NgxMatIntlTelInputComponent.nextId++}`;
-  phoneNumber: NationalNumber | undefined;
+  phoneNumber: NationalNumber | string | undefined;
   allCountries: Array<Country> = [];
   selectedCountry: Country | undefined;
   numberInstance: PhoneNumber | undefined;
