@@ -1,6 +1,6 @@
 {
-  "name": "ngx-mat-intl-tel-input",
-  "version": "5.0.0",
+  "name": "@exanic/ngx-mat-intl-tel-input",
+  "version": "1.0.0",
   "peerDependencies": {
     "@angular/common": ">=14.x",
     "@angular/core": ">=14.x",
@@ -49,6 +49,7 @@
   ],
   "license": "MIT",
   "dependencies": {
+    "ngx-mat-select-search": "^7.0.7",
     "tslib": "^2.x"
   }
 }
