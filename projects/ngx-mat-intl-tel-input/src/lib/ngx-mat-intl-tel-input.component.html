@@ -1,5 +1,5 @@
 <div class="ngx-mat-tel-input-container">
-  <mat-form-field class="country-select">
+  <mat-form-field appearance="outline" class="country-select">
     <mat-select
       [disabled]="disabled"
       [value]="selectedCountry"
@@ -27,7 +27,7 @@
       </mat-option>
     </mat-select>
   </mat-form-field>
-  <mat-form-field class="phone-input">
+  <mat-form-field appearance="outline" class="phone-input">
     <mat-label>{{ phoneLabel }}</mat-label>
     <input
       matInput
