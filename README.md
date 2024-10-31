@@ -81,10 +81,11 @@ If you want to show the sample number for the country selected or errors , use m
 | onlyCountries     | `string[]` | `[]`        | List of manually selected country abbreviations, which will appear in the dropdown. |
 | inputPlaceholder  | `string`   | `undefined` | Placeholder for the input component.                                                |
 | enablePlaceholder | `boolean`  | `true`      | Input placeholder text, which adapts to the country selected.                       |
+| searchPlaceholder | `string`   | `Search ...`| Placeholder text for the search input in the country dropdown.                      |
 | enableSearch      | `boolean`  | `false`     | Whether to display a search bar to help filter down the list of countries           |
 | format            | `string`   | `default`   | Format of "as you type" input. Possible values: national, international, default    |
 | describedBy       | `string`   | `undefined` | Use aria-described by with the input field                                          |
-| searchPlaceholder | `string`   | `undefined` | Search label for country select search dropdown                                     |
+| phoneLabel        | `string`   | `Number`    | Label for the phone number input field.                                             |
 
 ## Library Contributions
 

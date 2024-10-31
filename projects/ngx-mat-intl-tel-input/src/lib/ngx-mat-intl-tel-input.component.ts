@@ -217,14 +217,14 @@ export class NgxMatIntlTelInputComponent
     if (this.numberInstance && this.numberInstance.country) {
       // If an existing number is present, we use it to determine selectedCountry
       this.selectedCountry = this.getCountry(this.numberInstance.country);
+      this.countryChanged.emit(this.selectedCountry);
     } else {
-      this.selectedCountry = this.allCountries[0];
+      this.selectedCountry = undefined;
     }
-    this.countryChanged.emit(this.selectedCountry);
-    this.inputPlaceholder =
-      NgxMatIntlTelInputComponent.getPhoneNumberPlaceHolder(
-        this.selectedCountry.iso2.toUpperCase() as CC
-      );
+    // this.inputPlaceholder =
+    //   NgxMatIntlTelInputComponent.getPhoneNumberPlaceHolder(
+    //     this.selectedCountry.iso2.toUpperCase() as CC
+    //   );
     this._changeDetectorRef.markForCheck();
     this.stateChanges.next(undefined);
     this.filteredCountries = this.allCountries;
@@ -241,7 +241,7 @@ export class NgxMatIntlTelInputComponent
     try {
       this.numberInstance = parsePhoneNumberFromString(
         this.phoneNumber?.toString() || "",
-        this.selectedCountry?.iso2.toUpperCase() as CC
+        this.selectedCountry?.iso2?.toUpperCase() as CC
       );
       this.formatAsYouTypeIfEnabled();
       this.value = this.numberInstance?.number;
@@ -267,15 +267,16 @@ export class NgxMatIntlTelInputComponent
   }
 
   public onCountrySelect(country: Country, el: MatInput): void {
-    if (this.phoneNumber) {
+    if (this.phoneNumber && this.numberInstance?.nationalNumber) {
       this.phoneNumber = this.numberInstance?.nationalNumber;
     }
     this.selectedCountry = country;
     this.countryChanged.emit(this.selectedCountry);
-    this.inputPlaceholder =
-      NgxMatIntlTelInputComponent.getPhoneNumberPlaceHolder(
-        country.iso2.toUpperCase() as CC
-      );
+    // Uncomment to format nicely
+    // this.inputPlaceholder =
+    //   NgxMatIntlTelInputComponent.getPhoneNumberPlaceHolder(
+    //     country.iso2.toUpperCase() as CC
+    //   );
     this.onPhoneNumberChange();
     setTimeout(() => {
       el.focus();
@@ -447,8 +448,7 @@ export class NgxMatIntlTelInputComponent
       return;
     }
     const asYouType: AsYouType = new AsYouType(
-      this.selectedCountry?.iso2.toUpperCase() as CC
-    );
+      this.selectedCountry?.iso2?.toUpperCase() as CC    );
     // To avoid caret positioning we apply formatting only if the caret is at the end:
     if (
       this.phoneNumber

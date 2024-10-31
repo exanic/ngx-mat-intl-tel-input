@@ -5,14 +5,15 @@
     <ngx-mat-intl-tel-input
       [cssClass]="'custom'"
       [preferredCountries]="['us', 'ca']"
-      [format]="'national'"
-      [enablePlaceholder]="true"
+      [enablePlaceholder]="false"
       [formControl]="phoneForm.controls.phone"
-      placeholder="Enter Number"
+      searchPlaceholder="HELLO"
+      inputPlaceholder="Enter Number"
+      phoneLabel="NUMMBER"
       describedBy="phoneInput"
       #phone
     ></ngx-mat-intl-tel-input>
-    <mat-hint>e.g. {{ phone.selectedCountry.placeHolder }}</mat-hint>
+    <mat-hint>e.g. {{ phone.selectedCountry?.placeHolder }}</mat-hint>
     <mat-error *ngIf="phoneForm.controls.phone.errors?.required">
       Required Field
     </mat-error>
